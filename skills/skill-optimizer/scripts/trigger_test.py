@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 7: run the old and new versions of a skill against the same tests and compare.
 
-<work>/tests.json:
+<run-dir>/tests.json:
   {
     "skill": "my-skill",
     "after": "path/to/the/edited/skill",      # optional, default: the folder snapshot.py copied
@@ -10,11 +10,11 @@
   }
 Check types: contains, not_contains, regex, max_words, min_words.
 
-Each version is installed into a scratch project at <work>/run-<before|after>/.claude/skills/,
+Each version is installed into a scratch project at <run-dir>/run-<before|after>/.claude/skills/,
 and every phrase and task runs once through `claude -p` from there. The new version ships only
 if it scores at least as well as the old one on both phrases and tasks.
 
-Usage: trigger_test.py <work> [--dry-run | --yes] [--model MODEL] [--claude claude] [--timeout 300]
+Usage: trigger_test.py <run-dir> [--dry-run | --yes] [--model MODEL] [--claude claude] [--timeout 300]
 """
 from __future__ import annotations
 
@@ -36,18 +36,27 @@ def load_tests(work: Path) -> dict:
     return t
 
 
+def _skill_calls(node):
+    """Yield the skill name of every Skill tool call found anywhere inside a parsed event."""
+    if isinstance(node, list):
+        for item in node:
+            yield from _skill_calls(item)
+    elif isinstance(node, dict):
+        if node.get("name") == "Skill" and isinstance(node.get("input"), dict):
+            yield str(node["input"].get("skill", ""))
+        for value in node.values():
+            yield from _skill_calls(value)
+
+
 def triggered(stream: str, skill: str) -> bool:
-    """True when a stream-json transcript shows the Skill tool called with this skill."""
-    for line in stream.splitlines():
+    """True when any line of a stream-json transcript calls the Skill tool with this skill."""
+    for line in filter(None, map(str.strip, stream.splitlines())):
         try:
-            ev = json.loads(line)
+            names = list(_skill_calls(json.loads(line)))
         except json.JSONDecodeError:
             continue
-        for block in (ev.get("message") or {}).get("content") or []:
-            if isinstance(block, dict) and block.get("type") == "tool_use" and block.get("name") == "Skill":
-                called = str((block.get("input") or {}).get("skill", ""))
-                if called.split(":")[-1] == skill:
-                    return True
+        if skill in (n.rsplit(":", 1)[-1] for n in names):
+            return True
     return False
 
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Step 2: copy a skill to <work>/before/ so step 7 has something to test against.
+"""Step 2: copy a skill to <run-dir>/before/ so step 7 has something to test against.
 
 Refuses to overwrite an existing snapshot. Use --force only to start over.
-Usage: snapshot.py <skill-dir> <work> [--force]
+Usage: snapshot.py <skill-dir> <run-dir> [--force]
 """
 from __future__ import annotations
 

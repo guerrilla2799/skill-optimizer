@@ -4,7 +4,7 @@ For when Python or the `claude` CLI is unavailable. Same seven steps, same order
 
 1. **Rank.** Search your chat history or tool logs for each skill name and write the counts down.
    Without logs, list the ten skills you remember using most.
-2. **Snapshot.** Copy the skill folder to `<work>/before/` before you change anything.
+2. **Snapshot.** Copy the skill folder to `<run-dir>/before/` before you change anything.
 3. **Check.** Count the description's characters. Look for quoted phrases and a "do not use"
    line. Open every link in the skill and confirm the file exists. Read the descriptions of
    neighboring skills for the same phrases.

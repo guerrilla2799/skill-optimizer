@@ -9,6 +9,11 @@ uses all pay that cost, and the model picks the wrong skill more often.
 I run about 200 skills and saved prompts. When I opened 13 of them, each had between 7 and 13
 errors. This is the process I now run on them, packaged so you can run it on yours.
 
+I worked these steps out while repairing my skills with [Skill Fixer](https://www.trustinsights.ai)
+from Trust Insights, a paid tool that runs a much deeper repair against about 100 rules. If you
+want the full treatment, buy it. Skill Optimizer is my free, independent take on the steps I
+run every week, with no code or text from Skill Fixer. I'm not affiliated with Trust Insights.
+
 ---
 
 ## The seven steps
@@ -33,8 +38,8 @@ errors. This is the process I now run on them, packaged so you can run it on you
    trigger, 9 shouldn't) and 3 real tasks with pass/fail checks. If the new version scores
    lower, it doesn't ship.
 
-The model does the judgment work (rewrites, moves, gotchas). The scripts count the runs and
-characters and score both versions, so the result doesn't depend on the model's guess.
+Anything with one right answer, like a run count, a character count, or a test score, comes
+from a script. Rewrites, moved rules, and gotchas take judgment, so the model writes those.
 
 ---
 

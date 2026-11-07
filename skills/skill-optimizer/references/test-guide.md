@@ -40,7 +40,7 @@ where you made your edits.
 
 Pick three real jobs the skill did in the last month. Give each one a few checks a script can
 decide: required text, banned words, a word limit, a format pattern. Leave out checks that need
-taste. Judge those by reading the saved outputs in `<work>/run-*/task-*.txt`.
+taste. Judge those by reading the saved outputs in `<run-dir>/run-*/task-*.txt`.
 
 ## Reading the result
 
