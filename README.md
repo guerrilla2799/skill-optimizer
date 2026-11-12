@@ -1,5 +1,7 @@
 # Skill Optimizer
 
+![Skill Optimizer](assets/social-preview.png)
+
 **A Claude Code skill that tunes up the skills you already run, most-used first.**
 
 Every skill you install costs tokens on every request, because its description loads whether
